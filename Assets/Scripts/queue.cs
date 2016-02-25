@@ -39,6 +39,8 @@ public class queue : MonoBehaviour
 
     public void LeaveLine(GameObject person)
     {
-        line.Remove(person);
+        openSpace = line.IndexOf(person);
+        line.Remove(person);   
+        MoveUp();
     }
 }
