@@ -2,7 +2,6 @@
 
 public class queue : MonoBehaviour
 {
-
     GameObject[] line;
     float timer;
     int counter;
@@ -22,19 +21,18 @@ public class queue : MonoBehaviour
             for (int i = 0; i > (10 - line.Length); i++)
             {
                 //code to add more people
-                //line.add(poolparty[1]);
+                //line.add(kevinscript.poolparty[1]);
             }
         }
         foreach (GameObject person in line)
         {
 
-            /*if(timer > person.patientce){
-                line.RemoveAt(counter);
-                space = counter;
-                MoveUp()
+            if(timer > person.patience()){
+                line.RemoveAt(person.place());
+                openSpace = counter;
+                MoveUp();
             }
             counter++;
-            */
         }
     }
 
