@@ -19,9 +19,8 @@ public class person : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= patience)
         {
-            Destroy(this.gameObject);
             GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
-            //GetComponent<queue>().LeaveLine(this.gameObject);
+            GameObject.Find("_manager").GetComponent<queue>().LeaveLine(this.gameObject);
         }
     }
 }

@@ -10,7 +10,7 @@ public class queue : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i > 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             line.Add(GameObject.FindGameObjectWithTag("person"));
         }
@@ -40,7 +40,9 @@ public class queue : MonoBehaviour
     public void LeaveLine(GameObject person)
     {
         openSpace = line.IndexOf(person);
-        line.Remove(person);   
+        line.Remove(person);
+        person.transform.Translate(10,10,0);
+        Destroy(person);
         MoveUp();
     }
 }
