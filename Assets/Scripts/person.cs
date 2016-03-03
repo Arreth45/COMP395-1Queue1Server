@@ -6,6 +6,7 @@ public class person : MonoBehaviour
     public int place;
     public float timer;
     public float serveTime;
+    public double id;
 
     // Use this for initialization
     void Start()
@@ -20,7 +21,7 @@ public class person : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= patience)
         {
-            GameObject.Find("_manager").GetComponent<queue>().servePerson(this.gameObject);
+            GameObject.Find("_manager").GetComponent<queue>().servePerson(gameObject);
         }
     }
 }

@@ -17,7 +17,6 @@ public class queue : MonoBehaviour
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
         upTimer += Time.deltaTime;
@@ -41,7 +40,6 @@ public class queue : MonoBehaviour
         openSpace = line.IndexOf(person);
         line.Remove(person);
         person.transform.Translate(10, 10, 0);
-        Destroy(person.gameObject);
         MoveUp();
     }
 
