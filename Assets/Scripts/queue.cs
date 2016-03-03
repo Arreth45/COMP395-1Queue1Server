@@ -6,26 +6,25 @@ public class queue : MonoBehaviour
     public List<GameObject> line = new List<GameObject>();
     int counter;
     int openSpace;
+    public double served;
+    public float uptime;
+    public float idletime;
+    public float servetime;
+    float upTimer, serveTimer, idleTimer;
 
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i > 10; i++)
-        {
-            line.Add(GameObject.FindGameObjectWithTag("person"));
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (line.Count < 10)
-        {
-            for (int i = 0; i > (10 - line.Count); i++)
-            {
-                line.Add(GameObject.FindGameObjectWithTag("person"));
-            }
-        }
+        upTimer += Time.deltaTime;
+        idleTimer += Time.deltaTime;
+        uptime += upTimer;
+        idletime += idleTimer;
+        servePerson(line[0]);
     }
 
     private void MoveUp()
@@ -40,7 +39,21 @@ public class queue : MonoBehaviour
     public void LeaveLine(GameObject person)
     {
         openSpace = line.IndexOf(person);
-        line.Remove(person);   
+        line.Remove(person);
+        person.transform.Translate(10, 10, 0);
+        Destroy(person.gameObject);
         MoveUp();
+    }
+
+    public void servePerson(GameObject person)
+    {
+        serveTimer += Time.deltaTime;
+        servetime += serveTimer;
+        if (serveTimer >= person.GetComponent<person>().serveTime)
+        {
+            served++;
+            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
+            LeaveLine(person);
+        }
     }
 }

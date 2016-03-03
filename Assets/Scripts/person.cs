@@ -5,12 +5,13 @@ public class person : MonoBehaviour
     public float patience;
     public int place;
     public float timer;
+    public float serveTime;
 
     // Use this for initialization
     void Start()
     {
         patience = 10 + Random.Range(0, 11);
-
+        serveTime = Random.Range(1, 6);
     }
 
     // Update is called once per frame
@@ -19,9 +20,7 @@ public class person : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= patience)
         {
-            Destroy(this.gameObject);
-            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
-            //GetComponent<queue>().LeaveLine(this.gameObject);
+            GameObject.Find("_manager").GetComponent<queue>().servePerson(this.gameObject);
         }
     }
 }
