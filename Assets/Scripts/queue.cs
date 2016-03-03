@@ -63,6 +63,7 @@ public class queue : MonoBehaviour
         if (serveTimer >= person.GetComponent<person>().serveTime)
         {
             served++;
+            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
             LeaveLine(person);
         }
     }

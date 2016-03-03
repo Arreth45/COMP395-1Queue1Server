@@ -20,8 +20,8 @@ public class person : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= patience)
         {
-            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
-            GameObject.Find("_manager").GetComponent<queue>().LeaveLine(this.gameObject);
+
+            GameObject.Find("_manager").GetComponent<queue>().servePerson(this.gameObject);
         }
     }
 }
