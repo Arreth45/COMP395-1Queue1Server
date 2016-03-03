@@ -41,7 +41,7 @@ public class queue : MonoBehaviour
         openSpace = line.IndexOf(person);
         line.Remove(person);
         person.transform.Translate(10, 10, 0);
-        Destroy(person);
+        Destroy(person.gameObject);
         MoveUp();
     }
 
