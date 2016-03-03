@@ -6,19 +6,15 @@ public class queue : MonoBehaviour
     public List<GameObject> line = new List<GameObject>();
     int counter;
     int openSpace;
-    double served;
-    float uptime;
-    float idletime;
-    float servetime;
+    public double served;
+    public float uptime;
+    public float idletime;
+    public float servetime;
     float upTimer, serveTimer, idleTimer;
 
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            line.Add(GameObject.FindGameObjectWithTag("person"));
-        }
     }
 
     // Update is called once per frame
