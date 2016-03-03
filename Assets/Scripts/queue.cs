@@ -25,13 +25,6 @@ public class queue : MonoBehaviour
         uptime += upTimer;
         idletime += idleTimer;
         servePerson(line[0]);
-        if (line.Count < 10)
-        {
-            for (int i = 0; i > (10 - line.Count); i++)
-            {
-                line.Add(GameObject.FindGameObjectWithTag("person"));
-            }
-        }
     }
 
     private void MoveUp()
