@@ -17,16 +17,7 @@ public class ChillSpot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DestroyPerson();
         AddPeople();
-    }
-
-    void DestroyPerson()
-    {
-        // they "Leave" the pool to go to the line every 2f 
-        //instead of death this is where one would put the code to move a selected object 
-        //also if there is a better way to Find the Clone object that be cool too :D
-        Destroy(GameObject.Find("Peep 1(Clone)"), time);
     }
 
     void AddPeople()
