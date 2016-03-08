@@ -23,7 +23,7 @@ public class ChillSpot : MonoBehaviour
         if (currentPeople < maxPeople)
         {
             Instantiate(Person, new Vector2(Random.Range(0, 5), Random.Range(0, -5)), Quaternion.identity);
-            GameObject.Find("_manager").GetComponent<queue>().line.Add(Person);
+            GameObject.Find("_manager").GetComponent<queue>().line.Add(GameObject.FindGameObjectWithTag("person"));
             currentPeople++;
         }
     }
