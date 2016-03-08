@@ -13,9 +13,6 @@ public class queue : MonoBehaviour
     float upTimer, serveTimer, idleTimer;
 
     // Use this for initialization
-    void Start()
-    {
-    }
 
     void Update()
     {
@@ -23,7 +20,10 @@ public class queue : MonoBehaviour
         idleTimer += Time.deltaTime;
         uptime += upTimer;
         idletime += idleTimer;
-        servePerson(line[0]);
+        if (line.Count > 0)
+        {
+            servePerson(line[0]);
+        }
     }
 
     private void MoveUp()
@@ -39,21 +39,20 @@ public class queue : MonoBehaviour
     {
         openSpace = line.IndexOf(person);
         line.Remove(person);
-        //person.transform.Translate(10, 10, 0);
-        //find way to find specifc person and destroy
-        MoveUp();
+        //MoveUp();
     }
 
     public void servePerson(GameObject person)
     {
-        serveTimer += Time.deltaTime;
-        servetime += serveTimer;
-        person.transform.Translate(1,5,0);
-        if (serveTimer >= person.GetComponent<person>().serveTime)
-        {
-            served++;
-            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
-            LeaveLine(person);
-        }
+            serveTimer += Time.deltaTime;
+            servetime += serveTimer;
+            person.transform.Translate(1, 5, 0);        
+            if (servetime >= person.GetComponent<person>().serveTime)
+            {
+                served++;
+                LeaveLine(person);
+                person.GetComponent<person>().isServed = true;
+            }
+        
     }
 }

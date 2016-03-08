@@ -24,9 +24,11 @@ public class person : MonoBehaviour
         {
             GameObject.Find("_manager").GetComponent<queue>().LeaveLine(this.GetComponent<GameObject>());
         }
-        
-        if(isServed){
+
+        if (isServed)
+        {
             Destroy(gameObject);
+            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
         }
     }
 }
