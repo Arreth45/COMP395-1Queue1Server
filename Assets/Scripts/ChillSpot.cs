@@ -2,10 +2,10 @@
 
 public class ChillSpot : MonoBehaviour
 {
-    private float time = 2f;
     private int maxPeople = 10;
     public int currentPeople;
     public GameObject Person;
+    
     // Use this for initialization
     void Start()
     {
