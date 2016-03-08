@@ -6,23 +6,23 @@ public class queue : MonoBehaviour
     public List<GameObject> line = new List<GameObject>();
     int counter;
     int openSpace;
-    public double served;
-    public float uptime;
-    public float idletime;
-    public float servetime;
-    float upTimer, serveTimer, idleTimer;
+    public double served = 0;
+    public float uptime = 0;
+    public float idletime = 0;
+    public float servetime = 0;
+    float upTimer, serveTimer, idleTimer = 0;
+
+    private bool isServing = false;
 
     // Use this for initialization
 
     void Update()
     {
-        upTimer += Time.deltaTime;
-        idleTimer += Time.deltaTime;
-        uptime += upTimer;
-        idletime += idleTimer;
-        if (line.Count > 0)
+        if (GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople > 0 && !isServing)
         {
+            /*
             servePerson(line[0]);
+            */
         }
     }
 
@@ -44,15 +44,18 @@ public class queue : MonoBehaviour
 
     public void servePerson(GameObject person)
     {
-            serveTimer += Time.deltaTime;
-            servetime += serveTimer;
-            person.transform.Translate(1, 5, 0);        
-            if (servetime >= person.GetComponent<person>().serveTime)
-            {
-                served++;
-                LeaveLine(person);
-                person.GetComponent<person>().isServed = true;
-            }
-        
+        isServing = true;
+        serveTimer += 0.0001f;
+        servetime += 0.0001f;
+        if (servetime > person.GetComponent<person>().serveTime)
+        {
+
+            person.transform.Translate(1, 5, 0);
+            served++;
+            LeaveLine(person);
+            person.GetComponent<person>().isServed = true;
+            isServing = false;
+        }
+
     }
 }
