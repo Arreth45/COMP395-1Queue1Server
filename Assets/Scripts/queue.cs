@@ -39,7 +39,8 @@ public class queue : MonoBehaviour
     {
         openSpace = line.IndexOf(person);
         line.Remove(person);
-        person.transform.Translate(10, 10, 0);
+        //person.transform.Translate(10, 10, 0);
+        //find way to find specifc person and destroy
         MoveUp();
     }
 
@@ -47,6 +48,7 @@ public class queue : MonoBehaviour
     {
         serveTimer += Time.deltaTime;
         servetime += serveTimer;
+        person.transform.Translate(1,5,0);
         if (serveTimer >= person.GetComponent<person>().serveTime)
         {
             served++;
