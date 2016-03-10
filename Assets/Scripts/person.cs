@@ -14,6 +14,9 @@ public class person : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GameObject.Find("_manager").GetComponent<queue>().line.Add(this.gameObject);
+        //get positon of person in line
+        
         patience = 10 + Random.Range(0, 11);
         serveTime = Random.Range(1, 11);
     }
@@ -21,29 +24,28 @@ public class person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer = +Time.deltaTime;
+        timer = +Time.deltaTime * 100;
         if (timer >= patience)
         {
             this.gameObject.GetComponent<person>().isServed = true;
+            GameObject.Find("_manager").GetComponent<queue>().left++;
         }
 
 
         if (isServed)
         {
-            Destroy(gameObject);
             GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
+            Destroy(gameObject);
         }
     }
 
     public void servePerson()
     {
-        GameObject.Find("_manager").GetComponent<queue>().isServing = true;
         while (this.serverTimer < this.serveTime)
         {
-            this.serverTimer += Time.deltaTime;
+            this.serverTimer += Time.deltaTime * 100;
             if (this.serverTimer > this.serveTime)
             {
-
                 this.transform.Translate(1, 5, 0);
                 GameObject.Find("_manager").GetComponent<queue>().served++;
                 this.gameObject.GetComponent<person>().isServed = true;

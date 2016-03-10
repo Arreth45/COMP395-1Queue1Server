@@ -5,7 +5,9 @@ public class queue : MonoBehaviour
 {
     public List<GameObject> line = new List<GameObject>();
 
-    public double served = 0;
+    public int served = 0;
+    
+    public int left = 0;
     public float uptime = 0;
     public float idletime = 0;
     public float servetime = 0;
@@ -17,9 +19,11 @@ public class queue : MonoBehaviour
 
     void Update()
     {
-        if (!isServing)
+        if (!isServing && GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople > 0)
         {
-            line[0 + (int)served].GetComponent<person>().servePerson();
+            isServing = true;
+            line.TrimExcess();
+            line[served + left].GetComponent<person>().servePerson();
         }
     }
 }
