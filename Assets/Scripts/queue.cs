@@ -22,9 +22,9 @@ public class queue : MonoBehaviour
 
     void Update()
     {
-        Server1 = GameObject.Find("Server1Actual");
-        Server2 = GameObject.Find("Server2Actual");
-        Server3 = GameObject.Find("Server3Actual");
+        Server1 = GameObject.Find("Server1");
+        Server2 = GameObject.Find("Server2");
+        Server3 = GameObject.Find("Server3");
         
         if (!Server1.GetComponent<server>().isServeing && GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople > 0)
         {

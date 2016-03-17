@@ -82,7 +82,7 @@ public class person : MonoBehaviour
             {
                 manager.GetComponent<queue>().served++;
                 gameObject.GetComponent<person>().isServed = true;
-                manager.GetComponent<queue>().isServing = false;
+                server.GetComponent<server>().isServeing = false;
                 moveUp();
             }
         }
