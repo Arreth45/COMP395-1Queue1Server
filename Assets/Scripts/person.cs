@@ -3,22 +3,27 @@
 public class person : MonoBehaviour
 {
     public float patience;
-    public int place;
     public float timer;
     public float serveTime;
     public float serverTimer;
     public bool isServed = false;
+    public GameObject server;
+    public GameObject manager;
+
+    public float speed = 1;
+
+    public bool isBeingServed = false;
     int counter;
     int openSpace;
 
     // Use this for initialization
     void Start()
     {
-        GameObject.Find("_manager").GetComponent<queue>().line.Add(this.gameObject);
-        //get positon of person in line
-        
-        patience = 10 + Random.Range(0, 11);
-        serveTime = Random.Range(1, 11);
+        server = GameObject.Find("Server");
+        manager = GameObject.Find("_manager");
+        manager.GetComponent<queue>().line.Add(gameObject);
+        patience = 100 + Random.Range(0, 11);
+        serveTime = 100 + Random.Range(1, 11);
     }
 
     // Update is called once per frame
@@ -27,31 +32,41 @@ public class person : MonoBehaviour
         timer = +Time.deltaTime * 100;
         if (timer >= patience)
         {
-            this.gameObject.GetComponent<person>().isServed = true;
-            GameObject.Find("_manager").GetComponent<queue>().left++;
+            gameObject.GetComponent<person>().isServed = true;
+            manager.GetComponent<queue>().left++;
         }
-
 
         if (isServed)
         {
-            GameObject.Find("_manager").GetComponent<ChillSpot>().currentPeople--;
+            manager.GetComponent<ChillSpot>().currentPeople--;
+            manager.GetComponent<queue>().line.Remove(gameObject);
             Destroy(gameObject);
         }
-    }
 
-    public void servePerson()
-    {
-        while (this.serverTimer < this.serveTime)
+        if (isBeingServed)
         {
-            this.serverTimer += Time.deltaTime * 100;
-            if (this.serverTimer > this.serveTime)
+            serverTimer += Time.deltaTime * 100;
+            float step = speed;
+            transform.position = Vector3.MoveTowards(transform.position, server.transform.position, step);
+            if (serverTimer > serveTime)
             {
-                this.transform.Translate(1, 5, 0);
-                GameObject.Find("_manager").GetComponent<queue>().served++;
-                this.gameObject.GetComponent<person>().isServed = true;
-                GameObject.Find("_manager").GetComponent<queue>().isServing = false;
+                manager.GetComponent<queue>().served++;
+                gameObject.GetComponent<person>().isServed = true;
+                manager.GetComponent<queue>().isServing = false;
+                moveUp();
             }
         }
 
+    }
+
+    public void moveUp()
+    {
+        for(int i = 0;i > manager.GetComponent<queue>().line.Count;i++){
+            manager.GetComponent<queue>().line[10] = manager.GetComponent<queue>().line[2+i];
+            manager.GetComponent<queue>().line.RemoveAt(2+i);
+            manager.GetComponent<queue>().line[1+i] = manager.GetComponent<queue>().line[10];
+            manager.GetComponent<queue>().line.RemoveAt(10);
+        }
+        
     }
 }
