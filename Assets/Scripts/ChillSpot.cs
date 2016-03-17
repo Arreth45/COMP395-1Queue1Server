@@ -6,9 +6,6 @@ public class ChillSpot : MonoBehaviour
     public int currentPeople = 0;
     public GameObject Person;
 
-    public float spawnTime;
-    public float spawnTimer;
-
     // Use this for initialization
     void Start()
     {
@@ -23,7 +20,7 @@ public class ChillSpot : MonoBehaviour
 
     void AddPeople()
     {
-        if (maxPeople < currentPeople)
+        if (currentPeople < maxPeople )
         {
             Instantiate(Person, new Vector2(Random.Range(0, 5), Random.Range(0, -5)), Quaternion.identity);
             currentPeople++;

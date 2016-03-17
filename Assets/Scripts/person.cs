@@ -19,11 +19,41 @@ public class person : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        server = GameObject.Find("Server");
+        server = GameObject.Find("Server1");
         manager = GameObject.Find("_manager");
-        manager.GetComponent<queue>().line.Add(gameObject);
         patience = 100 + Random.Range(0, 11);
         serveTime = 100 + Random.Range(1, 11);
+        
+        if (manager.GetComponent<queue>().amountOfLines == 1)
+        {
+            manager.GetComponent<queue>().line1.Add(gameObject);
+        }
+        else if (manager.GetComponent<queue>().amountOfLines == 2)
+        {
+            if (manager.GetComponent<queue>().line1.Count < manager.GetComponent<queue>().line2.Count)
+            {
+                manager.GetComponent<queue>().line1.Add(gameObject);
+            }
+            else
+            {
+                manager.GetComponent<queue>().line2.Add(gameObject);
+            }
+        }
+        else if (manager.GetComponent<queue>().amountOfLines == 3){
+            if (manager.GetComponent<queue>().line1.Count < manager.GetComponent<queue>().line2.Count)
+            {
+                manager.GetComponent<queue>().line1.Add(gameObject);
+            }
+            else if (manager.GetComponent<queue>().line2.Count < manager.GetComponent<queue>().line3.Count)
+            {
+                manager.GetComponent<queue>().line2.Add(gameObject);
+            }
+            else
+            {
+                manager.GetComponent<queue>().line2.Add(gameObject);
+            }
+        }
+        
     }
 
     // Update is called once per frame
@@ -39,7 +69,7 @@ public class person : MonoBehaviour
         if (isServed)
         {
             manager.GetComponent<ChillSpot>().currentPeople--;
-            manager.GetComponent<queue>().line.Remove(gameObject);
+            manager.GetComponent<queue>().line1.Remove(gameObject);
             Destroy(gameObject);
         }
 
@@ -61,12 +91,13 @@ public class person : MonoBehaviour
 
     public void moveUp()
     {
-        for(int i = 0;i > manager.GetComponent<queue>().line.Count;i++){
-            manager.GetComponent<queue>().line[10] = manager.GetComponent<queue>().line[2+i];
-            manager.GetComponent<queue>().line.RemoveAt(2+i);
-            manager.GetComponent<queue>().line[1+i] = manager.GetComponent<queue>().line[10];
-            manager.GetComponent<queue>().line.RemoveAt(10);
+        for (int i = 0; i > manager.GetComponent<queue>().line1.Count; i++)
+        {
+            manager.GetComponent<queue>().line1[10] = manager.GetComponent<queue>().line1[2 + i];
+            manager.GetComponent<queue>().line1.RemoveAt(2 + i);
+            manager.GetComponent<queue>().line1[1 + i] = manager.GetComponent<queue>().line1[10];
+            manager.GetComponent<queue>().line1.RemoveAt(10);
         }
-        
+
     }
 }
