@@ -20,15 +20,17 @@ public class person : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //initialization of Variables
         server = GameObject.Find("Server1");
         manager = GameObject.Find("_manager");
         patience = 100 + Random.Range(0, 11);
         serveTime = 100 + Random.Range(1, 11);
-
         priority = Random.Range(0, 6);
 
+        //add person to line
         manager.GetComponent<queue>().line1.Add(gameObject);
 
+        //cut line at max priority
         if (priority == 5)
         {
             GetComponent<SpriteRenderer>().color = Color.red;
@@ -65,8 +67,6 @@ public class person : MonoBehaviour
                 moveUp();
             }
         }
-
-
     }
 
     public void moveUp()
@@ -80,6 +80,7 @@ public class person : MonoBehaviour
         }
     }
 
+    //high priority cutLine
     public void cutLine()
     {
         //stop person at front
