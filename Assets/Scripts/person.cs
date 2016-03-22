@@ -4,6 +4,7 @@ public class person : MonoBehaviour
 {
     public float patience;
     public float timer;
+    public double priority;
     public float serveTime;
     public float serverTimer;
     public bool isServed = false;
@@ -19,41 +20,22 @@ public class person : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //initialization of Variables
         server = GameObject.Find("Server1");
         manager = GameObject.Find("_manager");
         patience = 100 + Random.Range(0, 11);
         serveTime = 100 + Random.Range(1, 11);
-        
-        if (manager.GetComponent<queue>().amountOfLines == 1)
+        priority = Random.Range(0, 6);
+
+        //add person to line
+        manager.GetComponent<queue>().line1.Add(gameObject);
+
+        //cut line at max priority
+        if (priority == 5)
         {
-            manager.GetComponent<queue>().line1.Add(gameObject);
+            GetComponent<SpriteRenderer>().color = Color.red;
+            cutLine();
         }
-        else if (manager.GetComponent<queue>().amountOfLines == 2)
-        {
-            if (manager.GetComponent<queue>().line1.Count < manager.GetComponent<queue>().line2.Count)
-            {
-                manager.GetComponent<queue>().line1.Add(gameObject);
-            }
-            else
-            {
-                manager.GetComponent<queue>().line2.Add(gameObject);
-            }
-        }
-        else if (manager.GetComponent<queue>().amountOfLines == 3){
-            if (manager.GetComponent<queue>().line1.Count < manager.GetComponent<queue>().line2.Count)
-            {
-                manager.GetComponent<queue>().line1.Add(gameObject);
-            }
-            else if (manager.GetComponent<queue>().line2.Count < manager.GetComponent<queue>().line3.Count)
-            {
-                manager.GetComponent<queue>().line2.Add(gameObject);
-            }
-            else
-            {
-                manager.GetComponent<queue>().line2.Add(gameObject);
-            }
-        }
-        
     }
 
     // Update is called once per frame
@@ -82,11 +64,9 @@ public class person : MonoBehaviour
             {
                 manager.GetComponent<queue>().served++;
                 gameObject.GetComponent<person>().isServed = true;
-                server.GetComponent<server>().isServeing = false;
                 moveUp();
             }
         }
-
     }
 
     public void moveUp()
@@ -98,6 +78,15 @@ public class person : MonoBehaviour
             manager.GetComponent<queue>().line1[1 + i] = manager.GetComponent<queue>().line1[10];
             manager.GetComponent<queue>().line1.RemoveAt(10);
         }
+    }
 
+    //high priority cutLine
+    public void cutLine()
+    {
+        //stop person at front
+        manager.GetComponent<queue>().line1[0].GetComponent<person>().isBeingServed = false;
+        //move person at front to the side
+        manager.GetComponent<queue>().line1[0].GetComponent<person>().gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(-2, 3.5f, 0), speed);
+        isBeingServed = true;
     }
 }
