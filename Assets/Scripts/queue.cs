@@ -4,8 +4,6 @@ using System.Collections.Generic;
 public class queue : MonoBehaviour
 {
     public List<GameObject> line1 = new List<GameObject>();
-    //public List<GameObject> line2= new List<GameObject>();
-    //public List<GameObject> line3 = new List<GameObject>();
 
     public int served = 0;
     public int left = 0;
