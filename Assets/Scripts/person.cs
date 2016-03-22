@@ -86,7 +86,7 @@ public class person : MonoBehaviour
         //stop person at front
         manager.GetComponent<queue>().line1[0].GetComponent<person>().isBeingServed = false;
         //move person at front to the side
-        manager.GetComponent<queue>().line1[0].GetComponent<person>().transform.position = Vector3.MoveTowards(transform.position, new Vector3(-2, 3.5f, 0), speed);
+        manager.GetComponent<queue>().line1[0].GetComponent<person>().gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(-2, 3.5f, 0), speed);
         isBeingServed = true;
     }
 }
